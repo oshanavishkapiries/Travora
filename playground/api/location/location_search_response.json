@@ -1,0 +1,168 @@
+{
+    "data": {
+        "AppPresentation_queryAppSearch": {
+            "__typename": "AppPresentation_QueryAppSearchResponse",
+            "container": {
+                "__typename": "AppPresentation_SearchResponseContainer",
+                "searchTitle": {
+                    "__typename": "AppPresentation_LocalizedString",
+                    "string": "\"srilanka\"",
+                    "debugValueKey": null
+                }
+            },
+            "sections": [
+                {
+                    "__typename": "AppPresentation_ListTitle",
+                    "listTitle": {
+                        "__typename": "AppPresentation_LocalizedString",
+                        "string": "Top results",
+                        "debugValueKey": null
+                    },
+                    "subTitle": null,
+                    "trackingTitle": "ListTitleSection_SRP_RESOLVED_ITEMS_0",
+                    "trackingKey": "{\"ik\":\"2154de26-db02-450c-bbc6-73a2f73fe357_0\",\"sn\":\"Search\"}",
+                    "stableDiffingType": "ListTitleSection_SRP_RESOLVED_ITEMS_0",
+                    "clusterId": "SRP_RESOLVED_ITEMS_0",
+                    "tooltip": null,
+                    "seeAll": null,
+                    "label": null
+                },
+                {
+                    "__typename": "AppPresentation_SingleCard",
+                    "trackingTitle": "PoiHorizontalStandardCard_hotel_32773470_SRP_RESOLVED_ITEMS_0",
+                    "trackingKey": "{\"br\":4.8,\"rc\":32,\"ik\":\"2154de26-db02-450c-bbc6-73a2f73fe357_3\",\"ctt\":\"LOCATION\",\"pt\":\"hotel\",\"lid\":32773470,\"pir\":1,\"mid\":779529959,\"sn\":\"Search\"}",
+                    "stableDiffingType": "PoiHorizontalStandardCard_hotel_32773470_SRP_RESOLVED_ITEMS_0",
+                    "appSearchCardContent": {
+                        "__typename": "AppPresentation_HorizontalStandardCard",
+                        "badge": null,
+                        "trackingKey": "{\"br\":4.8,\"rc\":32,\"ik\":\"2154de26-db02-450c-bbc6-73a2f73fe357_3\",\"ctt\":\"LOCATION\",\"pt\":\"hotel\",\"lid\":32773470,\"pir\":1,\"mid\":779529959,\"sn\":\"Search\"}",
+                        "trackingTitle": "PoiHorizontalStandardCard_hotel_32773470",
+                        "stableDiffingType": "PoiHorizontalStandardCard_hotel_32773470",
+                        "isSaved": false,
+                        "saveId": {
+                            "__typename": "Trips_ReferenceV2",
+                            "id": "32773470",
+                            "type": "location"
+                        },
+                        "cardTitle": {
+                            "__typename": "AppPresentation_LocalizedString",
+                            "string": "Amba Yaalu - Kandalama",
+                            "debugValueKey": null
+                        },
+                        "primaryInfo": {
+                            "__typename": "AppPresentation_JoinedLocalizableObjects",
+                            "text": "Free breakfast available"
+                        },
+                        "secondaryInfo": {
+                            "__typename": "AppPresentation_JoinedLocalizableObjects",
+                            "text": "Kandalama, Sri Lanka"
+                        },
+                        "bubbleRating": {
+                            "__typename": "AppPresentation_BubbleRating",
+                            "rating": 4.8,
+                            "numberReviews": {
+                                "__typename": "AppPresentation_LocalizedString",
+                                "string": "(32)",
+                                "debugValueKey": null
+                            }
+                        },
+                        "distance": null,
+                        "commerceButtons": null,
+                        "labels": [],
+                        "descriptiveText": null,
+                        "cardLink": {
+                            "__typename": "AppPresentation_InternalLink",
+                            "route": {
+                                "__typename": "Routing_Route",
+                                "fragment": null,
+                                "page": "AppDetail",
+                                "url": "/AppDetail?contentType=hotel&contentId=32773470",
+                                "nonCanonicalUrl": "/AppDetail?contentType=hotel&contentId=32773470",
+                                "typedParams": {
+                                    "__typename": "Routing_AppDetailParameters",
+                                    "contentId": "32773470",
+                                    "contentType": "hotel",
+                                    "spAttributionToken": null,
+                                    "wasPlusShown": null
+                                }
+                            },
+                            "webviewRoute": null,
+                            "text": null,
+                            "accessibilityString": {
+                                "__typename": "AppPresentation_LocalizedString",
+                                "string": "View details for Amba Yaalu - Kandalama",
+                                "debugValueKey": null
+                            },
+                            "trackingContext": "server_card"
+                        },
+                        "cardPhoto": {
+                            "__typename": "AppPresentation_PhotoItem",
+                            "sizes": {
+                                "__typename": "AppPresentation_PhotoItemSizeDynamic",
+                                "maxHeight": 3348,
+                                "maxWidth": 5952,
+                                "urlTemplate": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2e/76/ae/e7/caption.jpg?w={width}&h={height}&s=1"
+                            }
+                        },
+                        "closureInfo": null
+                    },
+                    "clusterId": "SRP_RESOLVED_ITEMS_0"
+                },
+                {
+                    "__typename": "AppPresentation_SecondaryButton",
+                    "clusterId": "SRP_MORE_RESULTS_1",
+                    "trackingKey": "{\"ik\":\"2154de26-db02-450c-bbc6-73a2f73fe357_19\",\"bt\":\"NEXT_PAGE\",\"sn\":\"Search\"}",
+                    "trackingTitle": "NextPageButtonSection_SRP_MORE_RESULTS_1",
+                    "stableDiffingType": "NextPageButtonSection_SRP_MORE_RESULTS_1",
+                    "link": {
+                        "__typename": "AppPresentation_UpdateLink",
+                        "text": {
+                            "__typename": "AppPresentation_LocalizedString",
+                            "string": "Show more",
+                            "debugValueKey": null
+                        },
+                        "route": {
+                            "__typename": "Routing_Route",
+                            "fragment": null,
+                            "page": "AppSearch",
+                            "url": "/AppSearch-a_query.srilanka-a_force.false",
+                            "nonCanonicalUrl": "/AppSearch-a_query.srilanka-a_force.false",
+                            "typedParams": {
+                                "__typename": "Routing_AppSearchParameters",
+                                "routingFilters": null,
+                                "force": false,
+                                "geoId": null,
+                                "query": "srilanka",
+                                "referringViewUrl": null
+                            }
+                        },
+                        "routeKey": {
+                            "__typename": "Routing_Route",
+                            "fragment": null,
+                            "page": "AppSearch",
+                            "url": null,
+                            "nonCanonicalUrl": null,
+                            "typedParams": null
+                        },
+                        "autoLoad": true,
+                        "updateToken": "eyJ2ZXIiOiJ2MiIsInR5cCI6IkpXVCIsImFsZyI6IkVTMjU2IiwidmVyc2lvbiI6IjEifQ.eyJvYmplY3QiOiJ7XCJAY1wiOlwiLlBhZ2luZ1VwZGF0ZVRva2VuXCIsXCJjbHVzdGVySWRzXCI6W1wiU1JQX01PUkVfUkVTVUxUU18xXCIsXCJTUlBfTU9SRV9SRVNVTFRTX0ZJTFRFUlNcIl0sXCJwcm92aWRlclVwZGF0ZVRva2Vuc1wiOntcIlNSUF9QQUdFXCI6e1wiQGNcIjpcImNvbS50cmlwYWR2aXNvci5zZXJ2aWNlLmFwcy5hZGFwdGVycy5zZWFyY2guU2VhcmNoUGFnZVVwZGF0ZVRva2VuXCIsXCJwYWdlSWRcIjoxLFwicmVxdWVzdFwiOntcInF1ZXJ5XCI6XCJzcmlsYW5rYVwiLFwibG9jYWxlXCI6XCJlbl9VU1wiLFwibGltaXRcIjoxMCxcImZpbHRlcnNcIjp7XCJkYXRhVHlwZXNcIjpbXCJMT0NBVElPTlwiXSxcImxvY2F0aW9uVHlwZXNcIjpbXCJHRU9cIixcIkFDQ09NTU9EQVRJT05cIixcIkFUVFJBQ1RJT05cIixcIkFUVFJBQ1RJT05fUFJPRFVDVFwiLFwiRUFURVJZXCJdfSxcImFkZGl0aW9uYWxGaWVsZHNcIjpbXCJTTklQUEVUXCJdLFwib2Zmc2V0XCI6MTAsXCJzY29wZVwiOntcImxvY2F0aW9uSWRcIjpudWxsLFwiY2VudGVyXCI6bnVsbH0sXCJsb2NhdGlvbklkc1RvRXhjbHVkZVwiOls1NDk2MTUyLDQ0NjQxODMsMzI3NzM0NzAsMTc3MjIzODAsMTE5MTM3OTRdLFwiY2F0ZWdvcnlGaWx0ZXJJZHNcIjpbXCJBVFRSQUNUSU9OU1wiLFwiUkVTVEFVUkFOVFNcIixcIkZPUlVNU1wiLFwiREVTVElOQVRJT05TXCIsXCJIT1RFTFNcIixcIkFDVElWSVRJRVNcIl19LFwic2VhcmNoU2Vzc2lvbklkXCI6XCJkMjEzNzE5Yy0zODlhLTQzMDMtYmU1Ny02M2QwMjVjYTM2YzJcIixcInNlYXJjaFJlZmluZW1lbnRJZFwiOlwiYzIyNzhkODMtZjc5NC00YTFmLWFiOWItMzIwNzI1OWU4NTExXCIsXCJzZWxlY3RlZEZpbHRlcklkXCI6bnVsbH19LFwicGFnZUluZGV4XCI6MSxcInR5cGVcIjpcIlBBR0lOQVRJT05cIixcInBvbGxpbmdTZXF1ZW5jZU51bVwiOjB9In0.MzJlMjUwMzMtNTIyNi00NmRkLThmNTQtNGMxYjNlMzMwNjhmLk1FVUNJRXZsa0FyaWF6UVZHQ3hyZFd6RHlfVjJGNVh1WkM2YVFVQjlVNFhxalBkNkFpRUFyWndnOERwcGV3WnBMU1BqcnJmbngtY2d0cFd5WDBsenJJRTdlb290Y3FR",
+                        "accessibilityString": {
+                            "__typename": "AppPresentation_LocalizedString",
+                            "string": "View more items in this list",
+                            "debugValueKey": null
+                        },
+                        "trackingContext": "server_showMore"
+                    },
+                    "icon": null
+                }
+            ],
+            "statusV2": {
+                "__typename": "AppPresentation_SuccessQueryResponseStatus",
+                "partial": false,
+                "pollingStatus": null
+            },
+            "updatedClusterIds": [],
+            "trackingKey": "{\"ik\":\"2154de26-db02-450c-bbc6-73a2f73fe357\",\"sn\":\"Search\"}"
+        }
+    }
+}
