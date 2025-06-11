@@ -1,0 +1,11 @@
+@host=http://localhost:3000
+@provider=booking
+
+POST {{host}}/scrape/{{provider}}
+Content-Type: application/json
+
+{
+  "location": "srilanka",
+  "checkIn": "2025-07-01",
+  "checkOut": "2025-07-05"
+}
