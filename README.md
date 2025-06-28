@@ -1,1 +1,1 @@
-# vz-engine
+# vibzi-ai
