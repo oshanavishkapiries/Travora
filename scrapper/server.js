@@ -23,6 +23,7 @@ app.get('/', async (req, res) => {
     await browser.close();
     res.send(html);
   } catch (error) {
+    console.error(error);
     res.status(500).send('Error scraping the website');
   }
 });
