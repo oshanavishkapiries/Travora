@@ -6,6 +6,8 @@ import { MapPin, Star, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TOURS } from "@/mock/tours";
 import { HOME_CATEGORIES } from "@/mock/categories";
+import Link from "next/link";
+import OptimizedImage from "@/components/common/OptimizedImage";
 
 type Category =
   | "All"
@@ -44,36 +46,40 @@ function RatingBadge({ rating }: { rating: number }) {
 
 function TourCard({ item }: { item: TourItem }) {
   return (
-    <div className="group overflow-hidden rounded-2xl bg-white shadow-sm transition-shadow hover:shadow-md">
-      <div className="relative aspect-[4/3] w-full overflow-hidden">
-        <img
-          src={item.imageUrl}
-          alt={item.title}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-          loading="lazy"
-        />
-        <RatingBadge rating={item.rating} />
-        <div className="absolute right-3 top-3 rounded-full bg-white p-2 text-black shadow-sm ring-1 ring-black/5">
-          <ArrowUpRight className="h-4 w-4" />
-        </div>
-      </div>
-
-      <div className="space-y-3 p-4">
-        <h3 className="line-clamp-1 text-lg font-semibold text-gray-900">
-          {item.title}
-        </h3>
-        <p className="line-clamp-2 text-sm text-gray-600">{item.description}</p>
-        <div className="mt-2 flex items-center justify-between border-t border-gray-100 pt-3">
-          <div className="flex items-center gap-2 text-sm text-gray-700">
-            <MapPin className="h-4 w-4" />
-            <span className="line-clamp-1">{item.location}</span>
+    <Link href={`/explore/tours/${item.id}`}>
+      <div className="group overflow-hidden rounded-2xl bg-white shadow-sm transition-shadow hover:shadow-md cursor-pointer">
+        <div className="relative aspect-[4/3] w-full overflow-hidden">
+          <OptimizedImage
+            src={item.imageUrl}
+            alt={item.title}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            containerClassName="h-full w-full"
+          />
+          <RatingBadge rating={item.rating} />
+          <div className="absolute right-3 top-3 rounded-full bg-white p-2 text-black shadow-sm ring-1 ring-black/5">
+            <ArrowUpRight className="h-4 w-4" />
           </div>
-          <Button className="rounded-full bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
-            View Details
-          </Button>
+        </div>
+
+        <div className="space-y-3 p-4">
+          <h3 className="line-clamp-1 text-lg font-semibold text-gray-900">
+            {item.title}
+          </h3>
+          <p className="line-clamp-2 text-sm text-gray-600">
+            {item.description}
+          </p>
+          <div className="mt-2 flex items-center justify-between border-t border-gray-100 pt-3">
+            <div className="flex items-center gap-2 text-sm text-gray-700">
+              <MapPin className="h-4 w-4" />
+              <span className="line-clamp-1">{item.location}</span>
+            </div>
+            <Button className="rounded-full bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
+              View Details
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -133,12 +139,14 @@ export default function Tourplanes({ items = DEFAULT_ITEMS }: ToursProps) {
             Load More
           </Button>
         ) : (
-          <Button
-            variant="outline"
-            className="rounded-full border-blue-600 bg-white px-6 text-blue-600 hover:bg-blue-50"
-          >
-            Explore More
-          </Button>
+          <Link href="/explore/tours">
+            <Button
+              variant="outline"
+              className="rounded-full border-blue-600 bg-white px-6 text-blue-600 hover:bg-blue-50"
+            >
+              Explore More
+            </Button>
+          </Link>
         )}
       </div>
     </section>

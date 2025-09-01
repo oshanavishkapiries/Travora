@@ -7,13 +7,12 @@ import {
   ArrowRight,
   MapPin,
   Calendar,
-  Image,
+  ImageIcon,
   Phone,
   Menu,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
 
 // ==================== Types and Interfaces ====================
 interface StatCardProps {
@@ -118,7 +117,7 @@ export default function Hero() {
         <h1 className="mb-6 max-w-4xl text-3xl font-bold leading-tight text-white md:mb-12 md:text-5xl lg:text-6xl">
           <span className="font-normal">Travel Memories</span>
           <br />
-          <span className="font-bold">you'll never forget</span>
+          <span className="font-bold">you&apos;ll never forget</span>
         </h1>
 
         {/* ==================== Search Bar (Desktop Only) ==================== */}
@@ -176,7 +175,7 @@ export default function Hero() {
               href="#tours"
             />
             <BottomNavItem
-              icon={<Image className="h-4 w-4" />}
+              icon={<ImageIcon className="h-4 w-4" />}
               label="Gallery"
               href="#gallery"
             />

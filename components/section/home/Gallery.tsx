@@ -2,6 +2,7 @@
 "use client";
 
 import React from "react";
+import OptimizedImage from "@/components/common/OptimizedImage";
 import { MapPin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GALLERY_ITEMS } from "@/mock/gallery";
@@ -19,11 +20,11 @@ function Tile({ item, className }: { item: GalleryItem; className?: string }) {
     <div
       className={"relative overflow-hidden rounded-2xl " + (className ?? "")}
     >
-      <img
+      <OptimizedImage
         src={item.src}
         alt={item.location}
-        loading="lazy"
         className="h-full w-full object-cover"
+        containerClassName="h-full w-full"
       />
       <div className="pointer-events-none absolute bottom-2 left-2 inline-flex items-center gap-1 rounded-full bg-black/60 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur">
         <MapPin className="h-3 w-3" /> {item.location}
