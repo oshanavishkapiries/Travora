@@ -1,3 +1,4 @@
+import Footer from "@/components/common/Footer";
 import React from "react";
 
 const MainLayout = ({
@@ -5,7 +6,12 @@ const MainLayout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <Footer />
+    </>
+  );
 };
 
 export default MainLayout;

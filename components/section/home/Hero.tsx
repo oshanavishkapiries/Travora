@@ -69,7 +69,7 @@ export default function Hero() {
           Travora
         </div>
 
-        {/* ==================== Desktop Navigation ==================== */}
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
           <a
             href="#destinations"
@@ -94,6 +94,12 @@ export default function Hero() {
             className="text-white/80 transition-colors hover:text-white"
           >
             Contact
+          </a>
+          <a
+            href="/admin"
+            className="text-white/80 transition-colors hover:text-white bg-white/10 px-3 py-2 rounded-lg"
+          >
+            Admin
           </a>
         </nav>
 
