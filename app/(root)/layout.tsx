@@ -1,15 +1,11 @@
-import React from 'react'
+import React from "react";
 
 const MainLayout = ({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) => {
-    return (
-        <div className="mx-auto max-w-6xl flex flex-col w-full h-full">
-            {children}
-        </div>
-    )
-}
+  return <>{children}</>;
+};
 
-export default MainLayout
+export default MainLayout;
