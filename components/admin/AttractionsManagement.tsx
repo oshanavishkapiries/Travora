@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { ATTRACTIONS } from "@/mock/attractions";
 import OptimizedImage from "@/components/common/OptimizedImage";
+import AddAttractionDialog from "./AddAttractionDialog";
+import { AttractionFormData } from "@/validations/attractionSchema";
 
 interface AttractionCard {
   id: string;
@@ -20,6 +22,7 @@ interface AttractionCard {
 export default function AttractionsManagement() {
   const [searchQuery, setSearchQuery] = useState("");
   const [attractions] = useState<AttractionCard[]>(ATTRACTIONS);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
   const filteredAttractions = attractions.filter(
     (attraction) =>
@@ -28,8 +31,13 @@ export default function AttractionsManagement() {
   );
 
   const handleAddAttraction = () => {
-    // TODO: Implement add attraction modal/form
-    console.log("Add attraction clicked");
+    setIsAddDialogOpen(true);
+  };
+
+  const handleSubmitAttraction = (data: AttractionFormData) => {
+    console.log("New attraction data:", data);
+    // TODO: Implement API call to save attraction
+    // For now, just close the dialog
   };
 
   const handleEditAttraction = (id: string) => {
@@ -159,6 +167,13 @@ export default function AttractionsManagement() {
           </div>
         )}
       </div>
+
+      {/* Add Attraction Dialog */}
+      <AddAttractionDialog
+        isOpen={isAddDialogOpen}
+        onClose={() => setIsAddDialogOpen(false)}
+        onSubmit={handleSubmitAttraction}
+      />
     </div>
   );
 }
