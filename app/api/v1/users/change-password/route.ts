@@ -4,6 +4,7 @@ import { updatePassword, findById } from "@/server/services/user.service";
 import { compare, hash } from "@/server/utils/hashing";
 import { requireAuth } from "@/server/utils/roleAuth";
 import { db } from "@/server/db";
+import { NextRequest } from "next/server";
 
 const Body = z.object({
   oldPassword: z.string().min(1),
@@ -15,7 +16,7 @@ export const PUT = async (req: Request) => {
   await db; // ensure connected
 
   // Check authentication
-  const authResult = await requireAuth(req as any);
+  const authResult = await requireAuth(req as NextRequest);
   if (typeof authResult === "object" && "error" in authResult) {
     return authResult;
   }

@@ -1,13 +1,14 @@
+import { NextRequest } from "next/server";
 import { ok, fail } from "@/server/utils/http";
 import { findUsersByRole } from "@/server/services/user.service";
 import { requireAdmin } from "@/server/utils/roleAuth";
 import { db } from "@/server/db";
 
-export const GET = async (req: Request) => {
+export const GET = async (req: NextRequest) => {
   await db; // ensure connected
 
   // Check admin authentication
-  const authResult = await requireAdmin(req as any);
+  const authResult = await requireAdmin(req);
   if (typeof authResult === "object" && "error" in authResult) {
     return authResult;
   }
@@ -36,7 +37,7 @@ export const GET = async (req: Request) => {
         updatedAt: user.updatedAt,
       })),
     });
-  } catch (error) {
+  } catch {
     return fail("internal_error", 500);
   }
 };

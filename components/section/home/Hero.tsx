@@ -4,17 +4,14 @@
 import React from "react";
 import {
   Search,
-  ArrowRight,
   MapPin,
   Calendar,
   ImageIcon,
   Phone,
-  Menu,
   MoveRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Navbar from "@/components/section/home/Navbar";
 
 // ==================== Types and Interfaces ====================
 interface StatCardProps {
@@ -31,7 +28,9 @@ interface BottomNavItemProps {
 // ==================== Stat Card Component ====================
 const StatCard: React.FC<StatCardProps> = ({ value, label }) => (
   <div className="w-16 md:w-52 flex flex-col items-center rounded-full border border-white/90 bg-white/15 px-3 py-1 md:px-6 md:py-2">
-    <span className="text-[8.5px] md:text-2xl font-bold text-white md:text-3xl">{value}</span>
+    <span className="text-[8.5px] md:text-2xl font-bold text-white md:text-3xl">
+      {value}
+    </span>
     <span className="text-[4.5px] text-white md:text-sm">{label}</span>
   </div>
 );
@@ -64,7 +63,6 @@ export default function Hero() {
         <div className="absolute inset-0 bg-black/30" />
       </div>
 
-
       {/* ==================== Hero Content ==================== */}
       <div className="mt-10 relative z-10 flex flex-col items-start justify-center px-6 py-16 text-left md:min-h-[calc(100vh-120px)] md:items-center md:text-center md:px-12 md:py-0 w-full h-fit gap-10">
         {/* ==================== Main Headline ==================== */}
@@ -93,7 +91,7 @@ export default function Hero() {
         >
           Explore
           {/* <ArrowRight className="ml-2 h-5 w-5 font-bold" /> */}
-          <MoveRight  />
+          <MoveRight />
         </Button>
 
         {/* ==================== Stats Section (Desktop) ==================== */}

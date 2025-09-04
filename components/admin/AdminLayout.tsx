@@ -2,16 +2,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import {
-  Home,
-  MapPin,
-  Calendar,
-  Camera,
-  Users,
-  Settings,
-  LogOut,
-  Loader2,
-} from "lucide-react";
+import { MapPin, LogOut, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";

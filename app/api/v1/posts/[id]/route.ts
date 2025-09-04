@@ -16,10 +16,11 @@ const UpdatePostBody = z.object({
 
 export const GET = async (
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) => {
   await db; // ensure connected
-  const post = await getPost(params.id);
+  const { id } = await params;
+  const post = await getPost(id);
   if (!post) return fail("post_not_found", 404);
 
   return ok({
@@ -34,13 +35,14 @@ export const GET = async (
 
 export const PUT = async (
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) => {
   await db; // ensure connected
   const user = await authenticate(req);
   if (!user) return fail("unauthorized", 401);
 
-  const post = await getPost(params.id);
+  const { id } = await params;
+  const post = await getPost(id);
   if (!post) return fail("post_not_found", 404);
 
   // Check if user is the author
@@ -50,7 +52,7 @@ export const PUT = async (
   const parsed = UpdatePostBody.safeParse(json);
   if (!parsed.success) return fail("invalid_body", 422, parsed.error.flatten());
 
-  const updatedPost = await updatePost(params.id, parsed.data);
+  const updatedPost = await updatePost(id, parsed.data);
   return ok({
     id: updatedPost._id,
     title: updatedPost.title,
@@ -61,18 +63,19 @@ export const PUT = async (
 
 export const DELETE = async (
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) => {
   await db; // ensure connected
   const user = await authenticate(req);
   if (!user) return fail("unauthorized", 401);
 
-  const post = await getPost(params.id);
+  const { id } = await params;
+  const post = await getPost(id);
   if (!post) return fail("post_not_found", 404);
 
   // Check if user is the author
   if (post.author._id.toString() !== user.id) return fail("forbidden", 403);
 
-  await deletePost(params.id);
+  await deletePost(id);
   return ok({ message: "Post deleted successfully" });
 };

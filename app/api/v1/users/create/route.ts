@@ -1,3 +1,4 @@
+import { NextRequest } from "next/server";
 import { z } from "@/server/utils/z";
 import { ok, fail } from "@/server/utils/http";
 import {
@@ -17,11 +18,11 @@ const Body = z.object({
   username: z.string().min(3).optional(),
 });
 
-export const POST = async (req: Request) => {
+export const POST = async (req: NextRequest) => {
   await db; // ensure connected
 
   // Check admin authentication
-  const authResult = await requireAdmin(req as any);
+  const authResult = await requireAdmin(req);
   if (typeof authResult === "object" && "error" in authResult) {
     return authResult;
   }
@@ -57,6 +58,7 @@ export const POST = async (req: Request) => {
       role: user.role,
       username: user.username,
     },
+    "User created successfully",
     201
   );
 };

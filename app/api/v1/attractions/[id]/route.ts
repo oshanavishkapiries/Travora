@@ -1,4 +1,3 @@
-import { z } from "@/server/utils/z";
 import { ok, fail } from "@/server/utils/http";
 import {
   getAttraction,
@@ -12,17 +11,18 @@ import { attractionSchema } from "@/validations/attractionSchema";
 
 export const GET = async (
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) => {
   await db; // ensure connected
-  const attraction = await getAttraction(params.id);
+  const { id } = await params;
+  const attraction = await getAttraction(id);
   if (!attraction) return fail("attraction_not_found", 404);
   return ok(attraction);
 };
 
 export const PUT = async (
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) => {
   await db; // ensure connected
   const user = await requireAdmin(req);
@@ -34,14 +34,15 @@ export const PUT = async (
   const parsed = attractionSchema.safeParse(json);
   if (!parsed.success) return fail("invalid_body", 422, parsed.error.flatten());
 
-  const attraction = await updateAttraction(params.id, parsed.data);
+  const { id } = await params;
+  const attraction = await updateAttraction(id, parsed.data);
   if (!attraction) return fail("attraction_not_found", 404);
   return ok(attraction);
 };
 
 export const DELETE = async (
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) => {
   await db; // ensure connected
   const user = await requireAdmin(req);
@@ -49,7 +50,8 @@ export const DELETE = async (
     return user; // Return error response
   }
 
-  const attraction = await deleteAttraction(params.id);
+  const { id } = await params;
+  const attraction = await deleteAttraction(id);
   if (!attraction) return fail("attraction_not_found", 404);
   return ok({ message: "Attraction deleted successfully" });
 };

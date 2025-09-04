@@ -63,7 +63,10 @@ export const POST = async (req: Request) => {
         const buffer = Buffer.from(bytes);
 
         // Upload to Cloudinary
-        const result = await new Promise<any>((resolve, reject) => {
+        const result = await new Promise<{
+          secure_url: string;
+          public_id: string;
+        }>((resolve, reject) => {
           cloudinary.uploader
             .upload_stream(
               {
@@ -82,8 +85,8 @@ export const POST = async (req: Request) => {
         return {
           success: true,
           originalName: file.name,
-          url: (result as any).secure_url,
-          publicId: (result as any).public_id,
+          url: result.secure_url,
+          publicId: result.public_id,
           size: file.size,
         };
       } catch (error) {

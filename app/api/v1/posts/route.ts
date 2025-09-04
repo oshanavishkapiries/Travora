@@ -34,6 +34,7 @@ export const POST = async (req: NextRequest) => {
 
   return ok(
     { id: post._id, title: post.title, body: post.body, author: user.id },
+    "Post created successfully",
     201
   );
 };

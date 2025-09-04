@@ -1,4 +1,3 @@
-import { z } from "@/server/utils/z";
 import { ok, fail } from "@/server/utils/http";
 import {
   listAttractions,
@@ -14,9 +13,10 @@ export const GET = async (req: NextRequest) => {
   const { searchParams } = new URL(req.url);
   const page = parseInt(searchParams.get("page") || "1");
   const pageSize = parseInt(searchParams.get("pageSize") || "10");
+  const search = searchParams.get("search") || undefined;
 
-  const attractions = await listAttractions(page, pageSize);
-  return ok({ attractions, page, pageSize });
+  const result = await listAttractions(page, pageSize, search);
+  return ok(result);
 };
 
 export const POST = async (req: NextRequest) => {

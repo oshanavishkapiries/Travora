@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect } from "react";
 import { X, Camera, Upload } from "lucide-react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -308,10 +309,11 @@ export default function AddAttractionDialog({
                   <div className="aspect-video lg:aspect-square border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-gray-50 hover:bg-gray-100 transition-colors">
                     {watchedValues.thumbnail ? (
                       <div className="relative w-full h-full">
-                        <img
+                        <Image
                           src={watchedValues.thumbnail}
                           alt="Thumbnail"
-                          className="w-full h-full object-cover rounded-lg"
+                          fill
+                          className="object-cover rounded-lg"
                         />
                         <button
                           type="button"
@@ -383,10 +385,11 @@ export default function AddAttractionDialog({
                       <div className="aspect-square border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-gray-50 hover:bg-gray-100 transition-colors">
                         {image ? (
                           <div className="relative w-full h-full">
-                            <img
+                            <Image
                               src={image}
                               alt={`Image ${index + 1}`}
-                              className="w-full h-full object-cover rounded-lg"
+                              fill
+                              className="object-cover rounded-lg"
                             />
                             <button
                               type="button"

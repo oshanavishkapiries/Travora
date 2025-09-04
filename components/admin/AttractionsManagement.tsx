@@ -1,62 +1,45 @@
 // ==================== Attractions Management Component Start ====================
 "use client";
 
-import React, { useState, useMemo } from "react";
-import {
-  Search,
-  Plus,
-  Edit,
-  Trash2,
-  MapPin,
-  User,
-  Loader2,
-} from "lucide-react";
+import React, { useState } from "react";
+import { Search, Plus, Edit, Trash2, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import OptimizedImage from "@/components/common/OptimizedImage";
+import Pagination from "@/components/common/Pagination";
 import AddAttractionDialog from "./AddAttractionDialog";
 import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
 import {
   useGetAttractions,
   useDeleteAttraction,
 } from "@/services/slices/attractionsSlice";
-import type { Attraction } from "@/types/attraction-api-type";
+import type {
+  Attraction,
+  GetAttractionsParams,
+} from "@/types/attraction-api-type";
 
 export default function AttractionsManagement() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize] = useState(12);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedAttraction, setSelectedAttraction] =
     useState<Attraction | null>(null);
 
-  // Fetch attractions with infinite scroll
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isLoading,
-    isError,
-    error,
-  } = useGetAttractions({});
+  // Fetch attractions with pagination
+  const queryParams: GetAttractionsParams = {
+    page: currentPage,
+    pageSize,
+    search: searchQuery.trim() || undefined,
+  };
 
-  // Flatten all pages of attractions
-  const allAttractions = useMemo(() => {
-    return data?.pages?.flatMap((page) => page.data.attractions) || [];
-  }, [data]);
+  const { data, isLoading, isError, error } = useGetAttractions(queryParams);
 
-  // Client-side search filtering
-  const filteredAttractions = useMemo(() => {
-    if (!searchQuery.trim()) return allAttractions;
-
-    return allAttractions.filter(
-      (attraction) =>
-        attraction.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        attraction.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        attraction.category.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }, [allAttractions, searchQuery]);
+  const attractions = data?.data?.attractions || [];
+  const totalPages = data?.data?.pagination?.totalPages || 1;
+  const totalAttractions = data?.data?.pagination?.total || 0;
 
   // Delete mutation
   const deleteAttractionMutation = useDeleteAttraction();
@@ -87,10 +70,13 @@ export default function AttractionsManagement() {
     }
   };
 
-  const handleLoadMore = () => {
-    if (hasNextPage && !isFetchingNextPage) {
-      fetchNextPage();
-    }
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
+    setCurrentPage(1); // Reset to first page when searching
   };
 
   return (
@@ -108,7 +94,7 @@ export default function AttractionsManagement() {
               type="text"
               placeholder="Search for something"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => handleSearchChange(e.target.value)}
               className="pl-10 w-64 bg-gray-100 border-0 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -118,7 +104,15 @@ export default function AttractionsManagement() {
       {/* Attractions Section */}
       <div>
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold text-gray-900">Attractions</h2>
+          <div>
+            <h2 className="text-xl font-semibold text-gray-900">Attractions</h2>
+            {!isLoading && !isError && (
+              <p className="text-sm text-gray-600 mt-1">
+                Showing {attractions.length} of {totalAttractions} attractions
+                {searchQuery && ` for "${searchQuery}"`}
+              </p>
+            )}
+          </div>
           <Button
             onClick={handleAddAttraction}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
@@ -168,7 +162,7 @@ export default function AttractionsManagement() {
         {!isLoading && !isError && (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredAttractions.map((attraction) => (
+              {attractions.map((attraction) => (
                 <Card
                   key={attraction._id}
                   className="overflow-hidden hover:shadow-lg transition-shadow p-0 gap-0"
@@ -216,30 +210,19 @@ export default function AttractionsManagement() {
               ))}
             </div>
 
-            {/* Load More Button */}
-            {hasNextPage && (
-              <div className="flex justify-center mt-8">
-                <Button
-                  onClick={handleLoadMore}
-                  disabled={isFetchingNextPage}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2"
-                >
-                  {isFetchingNextPage ? (
-                    <>
-                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      Loading...
-                    </>
-                  ) : (
-                    "Load More"
-                  )}
-                </Button>
-              </div>
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
             )}
           </>
         )}
 
         {/* Empty State */}
-        {!isLoading && !isError && filteredAttractions.length === 0 && (
+        {!isLoading && !isError && attractions.length === 0 && (
           <div className="text-center py-12">
             <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">

@@ -34,6 +34,7 @@ export interface UpdateAttractionData {
 export interface GetAttractionsParams {
   page?: number;
   pageSize?: number;
+  search?: string;
 }
 
 export interface AttractionsResponse {
@@ -42,6 +43,13 @@ export interface AttractionsResponse {
     attractions: Attraction[];
     page: number;
     pageSize: number;
+    pagination: {
+      total: number;
+      totalPages: number;
+      currentPage: number;
+      hasNextPage: boolean;
+      hasPrevPage: boolean;
+    };
   };
 }
 

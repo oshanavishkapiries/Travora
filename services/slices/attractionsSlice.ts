@@ -18,19 +18,10 @@ import type {
 } from "@/types/attraction-api-type";
 import { toast } from "sonner";
 
-export const useGetAttractions = (
-  params: Omit<GetAttractionsParams, "page" | "pageSize">
-) => {
-  return useInfiniteQuery({
+export const useGetAttractions = (params: GetAttractionsParams) => {
+  return useQuery({
     queryKey: ["attractions", params],
-    queryFn: ({ pageParam = 1 }) =>
-      getAttractions({ ...params, page: pageParam, pageSize: 10 }),
-    getNextPageParam: (lastPage, allPages) => {
-      const currentPage = allPages?.length;
-      const totalPages = Math.ceil(lastPage?.data?.attractions?.length / 10);
-      return currentPage < totalPages ? currentPage + 1 : undefined;
-    },
-    initialPageParam: 1,
+    queryFn: () => getAttractions(params),
   });
 };
 
