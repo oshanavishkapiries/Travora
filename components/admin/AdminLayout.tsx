@@ -10,23 +10,25 @@ import {
   Users,
   Settings,
   LogOut,
+  Loader2,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useAdminLogout } from "@/services/slices/adminAuthSlice";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
 }
 
 const navigationItems = [
-  { name: "Home", href: "/admin", icon: Home },
+  //{ name: "Home", href: "/admin", icon: Home },
   { name: "Attractions", href: "/admin/attractions", icon: MapPin },
-  { name: "Tour Plan", href: "/admin/tours", icon: Calendar },
-  { name: "Gallery", href: "/admin/gallery", icon: Camera },
-  { name: "Users", href: "/admin/users", icon: Users },
-  { name: "Settings", href: "/admin/settings", icon: Settings },
+  //{ name: "Tour Plan", href: "/admin/tours", icon: Calendar },
+  // { name: "Gallery", href: "/admin/gallery", icon: Camera },
+  //{ name: "Users", href: "/admin/users", icon: Users },
+  //{ name: "Settings", href: "/admin/settings", icon: Settings },
 ];
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
@@ -34,11 +36,10 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const logoutMutation = useAdminLogout();
 
   useEffect(() => {
-    // Simple authentication check - in production, this would validate a JWT token
     const checkAuth = () => {
-      // For demo purposes, we'll check if we're not on the login page
       if (pathname !== "/admin/login") {
         setIsAuthenticated(true);
       }
@@ -49,7 +50,6 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   }, [pathname]);
 
   useEffect(() => {
-    // Handle redirect after authentication check
     if (!isLoading && !isAuthenticated && pathname !== "/admin/login") {
       router.push("/admin/login");
     }
@@ -57,7 +57,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
   const handleLogout = () => {
     setIsAuthenticated(false);
-    router.push("/admin/login");
+    logoutMutation.mutate();
   };
 
   // Show loading state
@@ -65,19 +65,17 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <Loader2 className="h-12 w-12 animate-spin mx-auto mb-4 text-blue-600" />
           <p className="text-gray-600">Loading...</p>
         </div>
       </div>
     );
   }
 
-  // Don't render layout for login page
   if (pathname === "/admin/login") {
     return <>{children}</>;
   }
 
-  // Don't render layout if not authenticated
   if (!isAuthenticated) {
     return null;
   }
@@ -103,7 +101,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   className={cn(
                     "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors group",
                     isActive
-                      ? "bg-blue-50 text-blue-700 border-l-4 border-blue-700"
+                      ? "bg-blue-50 text-blue-700"
                       : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                   )}
                 >

@@ -1,53 +1,96 @@
 // ==================== Attractions Management Component Start ====================
 "use client";
 
-import React, { useState } from "react";
-import { Search, Plus, Edit, Trash2, MapPin, User } from "lucide-react";
+import React, { useState, useMemo } from "react";
+import {
+  Search,
+  Plus,
+  Edit,
+  Trash2,
+  MapPin,
+  User,
+  Loader2,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { ATTRACTIONS } from "@/mock/attractions";
 import OptimizedImage from "@/components/common/OptimizedImage";
 import AddAttractionDialog from "./AddAttractionDialog";
-import { AttractionFormData } from "@/validations/attractionSchema";
-
-interface AttractionCard {
-  id: string;
-  title: string;
-  description: string;
-  location: string;
-  imageUrl: string;
-}
+import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
+import {
+  useGetAttractions,
+  useDeleteAttraction,
+} from "@/services/slices/attractionsSlice";
+import type { Attraction } from "@/types/attraction-api-type";
 
 export default function AttractionsManagement() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [attractions] = useState<AttractionCard[]>(ATTRACTIONS);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [selectedAttraction, setSelectedAttraction] =
+    useState<Attraction | null>(null);
 
-  const filteredAttractions = attractions.filter(
-    (attraction) =>
-      attraction.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      attraction.location.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Fetch attractions with infinite scroll
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+    error,
+  } = useGetAttractions({});
+
+  // Flatten all pages of attractions
+  const allAttractions = useMemo(() => {
+    return data?.pages?.flatMap((page) => page.data.attractions) || [];
+  }, [data]);
+
+  // Client-side search filtering
+  const filteredAttractions = useMemo(() => {
+    if (!searchQuery.trim()) return allAttractions;
+
+    return allAttractions.filter(
+      (attraction) =>
+        attraction.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        attraction.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        attraction.category.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [allAttractions, searchQuery]);
+
+  // Delete mutation
+  const deleteAttractionMutation = useDeleteAttraction();
 
   const handleAddAttraction = () => {
+    setSelectedAttraction(null);
     setIsAddDialogOpen(true);
   };
 
-  const handleSubmitAttraction = (data: AttractionFormData) => {
-    console.log("New attraction data:", data);
-    // TODO: Implement API call to save attraction
-    // For now, just close the dialog
+  const handleEditAttraction = (attraction: Attraction) => {
+    setSelectedAttraction(attraction);
+    setIsAddDialogOpen(true);
   };
 
-  const handleEditAttraction = (id: string) => {
-    // TODO: Implement edit attraction modal/form
-    console.log("Edit attraction:", id);
+  const handleDeleteAttraction = (attraction: Attraction) => {
+    setSelectedAttraction(attraction);
+    setIsDeleteDialogOpen(true);
   };
 
-  const handleDeleteAttraction = (id: string) => {
-    // TODO: Implement delete confirmation modal
-    console.log("Delete attraction:", id);
+  const confirmDelete = () => {
+    if (selectedAttraction) {
+      deleteAttractionMutation.mutate(selectedAttraction._id, {
+        onSuccess: () => {
+          setIsDeleteDialogOpen(false);
+          setSelectedAttraction(null);
+        },
+      });
+    }
+  };
+
+  const handleLoadMore = () => {
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
   };
 
   return (
@@ -85,66 +128,118 @@ export default function AttractionsManagement() {
           </Button>
         </div>
 
-        {/* Attractions Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredAttractions.map((attraction) => (
-            <Card
-              key={attraction.id}
-              className="overflow-hidden hover:shadow-lg transition-shadow"
-            >
-              <div className="relative">
-                <OptimizedImage
-                  src={attraction.imageUrl}
-                  alt={attraction.title}
-                  className="w-full h-48 object-cover"
-                  containerClassName="w-full h-48"
-                />
-                {/* Action Buttons Overlay */}
-                <div className="absolute top-2 right-2 flex gap-2">
-                  <Button
-                    size="sm"
-                    variant="secondary"
-                    onClick={() => handleEditAttraction(attraction.id)}
-                    className="h-8 w-8 p-0 bg-white/90 hover:bg-white"
-                  >
-                    <Edit className="h-4 w-4 text-gray-600" />
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="destructive"
-                    onClick={() => handleDeleteAttraction(attraction.id)}
-                    className="h-8 w-8 p-0 bg-red-500/90 hover:bg-red-500"
-                  >
-                    <Trash2 className="h-4 w-4 text-white" />
-                  </Button>
-                </div>
-              </div>
+        {/* Loading State */}
+        {isLoading && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {Array.from({ length: 8 }).map((_, index) => (
+              <Card key={index} className="overflow-hidden p-0">
+                <div className="w-full h-48 bg-gray-200 animate-pulse" />
+                <CardContent className="p-4">
+                  <div className="h-4 bg-gray-200 rounded animate-pulse mb-2" />
+                  <div className="h-3 bg-gray-200 rounded animate-pulse mb-3" />
+                  <div className="h-3 bg-gray-200 rounded animate-pulse w-2/3" />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
 
-              <CardContent className="p-4">
-                <h3 className="font-semibold text-gray-900 mb-2 line-clamp-1">
-                  {attraction.title}
-                </h3>
-                <p className="text-sm text-gray-600 mb-3 line-clamp-2">
-                  {attraction.description}
-                </p>
-                <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-                  <User className="h-4 w-4" />
-                  <span>{attraction.location}</span>
-                </div>
-                <Button
-                  variant="outline"
-                  onClick={() => handleEditAttraction(attraction.id)}
-                  className="w-full bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100"
+        {/* Error State */}
+        {isError && (
+          <div className="text-center py-12">
+            <MapPin className="h-12 w-12 text-red-400 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 mb-2">
+              Failed to load attractions
+            </h3>
+            <p className="text-gray-600 mb-4">
+              {error?.message ||
+                "Something went wrong while loading attractions"}
+            </p>
+            <Button
+              onClick={() => window.location.reload()}
+              className="bg-blue-600 hover:bg-blue-700"
+            >
+              Try Again
+            </Button>
+          </div>
+        )}
+
+        {/* Attractions Grid */}
+        {!isLoading && !isError && (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredAttractions.map((attraction) => (
+                <Card
+                  key={attraction._id}
+                  className="overflow-hidden hover:shadow-lg transition-shadow p-0 gap-0"
                 >
-                  Edit Details
+                  <div className="relative">
+                    <OptimizedImage
+                      src={attraction.thumbnail}
+                      alt={attraction.title}
+                      className="w-full h-48 object-cover"
+                      containerClassName="w-full"
+                    />
+                    {/* Action Buttons Overlay */}
+                    <div className="absolute top-2 right-2 flex gap-2">
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        onClick={() => handleEditAttraction(attraction)}
+                        className="h-8 w-8 p-0 bg-white/90 hover:bg-white"
+                        disabled={deleteAttractionMutation.isPending}
+                      >
+                        <Edit className="h-4 w-4 text-gray-600" />
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        onClick={() => handleDeleteAttraction(attraction)}
+                        className="h-8 w-8 p-0 bg-red-500/90 hover:bg-red-500"
+                        disabled={deleteAttractionMutation.isPending}
+                      >
+                        <Trash2 className="h-4 w-4 text-white" />
+                      </Button>
+                    </div>
+                  </div>
+
+                  <CardContent className="p-4">
+                    <h3 className="font-semibold text-gray-900 mb-2 line-clamp-1">
+                      {attraction.title}
+                    </h3>
+                    <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
+                      <MapPin className="h-4 w-4" />
+                      <span>{attraction.location}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* Load More Button */}
+            {hasNextPage && (
+              <div className="flex justify-center mt-8">
+                <Button
+                  onClick={handleLoadMore}
+                  disabled={isFetchingNextPage}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2"
+                >
+                  {isFetchingNextPage ? (
+                    <>
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      Loading...
+                    </>
+                  ) : (
+                    "Load More"
+                  )}
                 </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+              </div>
+            )}
+          </>
+        )}
 
         {/* Empty State */}
-        {filteredAttractions.length === 0 && (
+        {!isLoading && !isError && filteredAttractions.length === 0 && (
           <div className="text-center py-12">
             <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">
@@ -168,11 +263,27 @@ export default function AttractionsManagement() {
         )}
       </div>
 
-      {/* Add Attraction Dialog */}
+      {/* Add/Edit Attraction Dialog */}
       <AddAttractionDialog
         isOpen={isAddDialogOpen}
-        onClose={() => setIsAddDialogOpen(false)}
-        onSubmit={handleSubmitAttraction}
+        onClose={() => {
+          setIsAddDialogOpen(false);
+          setSelectedAttraction(null);
+        }}
+        editData={selectedAttraction}
+      />
+
+      {/* Delete Confirmation Dialog */}
+      <DeleteConfirmationDialog
+        isOpen={isDeleteDialogOpen}
+        onClose={() => {
+          setIsDeleteDialogOpen(false);
+          setSelectedAttraction(null);
+        }}
+        onConfirm={confirmDelete}
+        title="Delete Attraction"
+        message={`Are you sure you want to delete "${selectedAttraction?.title}"? This action cannot be undone.`}
+        isLoading={deleteAttractionMutation.isPending}
       />
     </div>
   );

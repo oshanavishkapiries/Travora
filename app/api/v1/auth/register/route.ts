@@ -11,7 +11,7 @@ const Body = z.object({
 });
 
 export const POST = async (req: Request) => {
-  await db; // ensure connected
+  await db; 
   const json = await req.json().catch(() => null);
   const parsed = Body.safeParse(json);
   if (!parsed.success) return fail("invalid_body", 422, parsed.error.flatten());
@@ -22,5 +22,5 @@ export const POST = async (req: Request) => {
     name,
     password: await hash(password),
   });
-  return ok({ id: user._id, email: user.email, name: user.name }, 201);
+  return ok({ id: user._id, email: user.email, name: user.name }, "User created successfully", 201);
 };

@@ -1,5 +1,5 @@
 // ==================== Attraction Validation Schema Start ====================
-import { z } from "zod";
+import { z } from "@/server/utils/z";
 
 export const attractionSchema = z.object({
   title: z
@@ -10,6 +10,10 @@ export const attractionSchema = z.object({
     .string()
     .min(1, "Location is required")
     .max(200, "Location must be less than 200 characters"),
+  thumbnail: z
+    .string()
+    .url("Invalid thumbnail URL")
+    .min(1, "Thumbnail is required"),
   images: z
     .array(z.string().url("Invalid image URL"))
     .min(1, "At least one image is required")

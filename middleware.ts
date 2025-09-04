@@ -3,9 +3,12 @@ import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   // Protect admin routes (excluding login page)
-  if (request.nextUrl.pathname.startsWith("/admin") && !request.nextUrl.pathname.startsWith("/admin/login")) {
+  if (
+    request.nextUrl.pathname.startsWith("/admin") &&
+    !request.nextUrl.pathname.startsWith("/admin/login")
+  ) {
     // Check if user is authenticated and has admin role
-    const token = request.cookies.get("auth-token")?.value;
+    const token = request.cookies.get("authToken")?.value;
 
     if (!token) {
       // Redirect to login if no token
