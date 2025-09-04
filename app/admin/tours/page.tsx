@@ -2,8 +2,8 @@
 "use client";
 
 import React from "react";
-import AdminLayout from "@/components/admin/AdminLayout";
-import ToursManagement from "@/components/admin/ToursManagement";
+import AdminLayout from "@/components/section/admin/AdminLayout";
+import ToursManagement from "@/components/section/admin/ToursManagement";
 
 export default function AdminToursPage() {
   return (
