@@ -50,7 +50,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
 );
 
 const FeatureCards: React.FC = () => (
-  <section className="w-full px-4 md:px-8 py-12 md:py-20 max-w-screen">
+  <section className="w-full px-[20px] md:px-20 py-12 md:py-20 max-w-screen">
     <div className="grid grid-cols-3 gap-2 md:gap-8 justify-items-center ">
       {features.map((feature, idx) => (
         <FeatureCard key={idx} {...feature} />
