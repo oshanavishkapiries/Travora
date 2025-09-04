@@ -8,6 +8,8 @@ const MainLayout = ({
 }>) => {
   return (
     <>
+      {/* Navbar added to layout */}
+      <Navbar />
       {children}
       <Footer />
     </>
@@ -15,3 +17,4 @@ const MainLayout = ({
 };
 
 export default MainLayout;
+import Navbar from "@/components/section/home/Navbar";
