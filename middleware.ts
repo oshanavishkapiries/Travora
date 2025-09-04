@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  // Protect admin routes
-  if (request.nextUrl.pathname.startsWith("/admin")) {
+  // Protect admin routes (excluding login page)
+  if (request.nextUrl.pathname.startsWith("/admin") && !request.nextUrl.pathname.startsWith("/admin/login")) {
     // Check if user is authenticated and has admin role
     const token = request.cookies.get("auth-token")?.value;
 
