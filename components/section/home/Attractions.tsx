@@ -56,26 +56,31 @@ function AttractionCard({ item }: { item: AttractionItem }) {
             containerClassName="h-full w-full"
           />
           <RatingBadge rating={item.rating} />
-          <div className="absolute right-3 top-3 rounded-full bg-white p-2 text-black shadow-sm ring-1 ring-black/5">
+          <div className="absolute right-3 top-3 rounded-full bg-white p-2 text-black shadow-sm ring-1 ring-black/5 hidden sm:block">
             <ArrowUpRight className="h-4 w-4" />
           </div>
         </div>
 
-        <div className="space-y-3 p-4">
-          <h3 className="line-clamp-1 text-lg font-semibold text-gray-900">
-            {item.title}
-          </h3>
-          <p className="line-clamp-2 text-sm text-gray-600">
-            {item.description}
-          </p>
-          <div className="mt-2 flex items-center justify-between border-t border-gray-100 pt-3">
-            <div className="flex items-center gap-2 text-sm text-gray-700">
-              <MapPin className="h-4 w-4" />
-              <span className="line-clamp-1">{item.location}</span>
+        <div className="space-y-3 p-2.5 md:p-6 flex flex-col justify-between h-[116px] sm:h-[154px] md:h-[196px]">
+          <div className="space-y-3 h-full align-middle">
+            <h3 className="line-clamp-1 text-xs sm:text-[20px] font-semibold text-gray-900">
+              {item.title}
+            </h3>
+            <p className="line-clamp-2 text-[10px] sm:text-base text-gray-600">
+              {item.description}
+            </p>
+          </div>
+          <div>
+            <hr  className="hidden md:block"/>
+            <div className=" mt-3 flex items-center justify-between">
+              <div className="flex items-center gap-2 text-[10px] sm:text-base text-gray-700">
+                <MapPin className="h-2.5 sm:h-4 w-2.5 sm:w-4" />
+                <span className="line-clamp-1">{item.location}</span>
+              </div>
+              <Button className="hidden md:flex rounded-[8px] bg-blue-600 px-4 py-2 text-lg font-medium text-white hover:bg-blue-700">
+                View Details
+              </Button>
             </div>
-            <Button className="rounded-full bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
-              View Details
-            </Button>
           </div>
         </div>
       </div>
@@ -98,58 +103,62 @@ export default function Attractions({
   const canLoadMore = visibleCount < filtered.length;
 
   return (
-    <section className="w-full px-4 md:px-8 lg:px-0 max-w-6xl mx-auto mt-16 md:mt-24">
-      <h2 className="mb-4 text-3xl font-bold tracking-tight text-gray-900 md:mb-6 md:text-4xl">
-        Attractions
-      </h2>
-      {/* Filter Bar */}
-      <div className="mb-8 flex flex-wrap items-center justify-start gap-2 md:gap-3">
-        {CATEGORIES.map((c) => (
-          <button
-            key={c}
-            onClick={() => {
-              setActive(c);
-              setVisibleCount(6);
-            }}
-            className={
-              "rounded-full border px-4 py-2 text-sm transition-colors shadow-sm " +
-              (active === c
-                ? "border-black bg-black text-white"
-                : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50")
-            }
-            aria-pressed={active === c}
-          >
-            {c}
-          </button>
-        ))}
-      </div>
+    <section className="w-full px-[20px] md:px-20 ">
+      <div className="flex flex-col gap-6 md:gap-20 ">
+        <h2 className="mb-4 text-xl md:text-[40px] font-bold tracking-tight text-gray-900 md:mb-6 md:text-4xl">
+          Attractions
+        </h2>
+        <div className="flex flex-col gap-6">
+          {/* Filter Bar */}
+          <div className="hidden sm:flex flex-wrap items-center justify-start gap-2.5">
+            {CATEGORIES.map((c) => (
+              <button
+                key={c}
+                onClick={() => {
+                  setActive(c);
+                  setVisibleCount(6);
+                }}
+                className={
+                  "rounded-full px-6 py-2 text-base" +
+                  (active === c
+                    ? "border-black bg-black text-white"
+                    : "border-gray-300 bg-[#FAFAFA] text-gray-700 hover:bg-gray-50")
+                }
+                aria-pressed={active === c}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3">
-        {toShow.map((item) => (
-          <AttractionCard key={item.id} item={item} />
-        ))}
-      </div>
+          {/* Grid */}
+          <div className="grid grid-cols-2 xl:grid-cols-3 gap-4 md:gap-5 justify-between">
+            {toShow.map((item) => (
+              <AttractionCard key={item.id} item={item} />
+            ))}
+          </div>
 
-      {/* Load More / Explore More */}
-      <div className="mt-8 flex justify-center sm:justify-end">
-        {canLoadMore ? (
-          <Button
-            onClick={() => setVisibleCount((c) => c + 6)}
-            className="w-full rounded-full bg-black px-6 text-white hover:bg-black/90 sm:w-auto"
-          >
-            Load More
-          </Button>
-        ) : (
-          <Link href="/explore/attractions">
-            <Button
-              variant="outline"
-              className="rounded-full border-blue-600 bg-white px-6 text-blue-600 hover:bg-blue-50"
-            >
-              Explore More
-            </Button>
-          </Link>
-        )}
+          {/* Load More / Explore More */}
+          <div className="flex justify-center sm:justify-end">
+            {canLoadMore ? (
+              <Button
+                onClick={() => setVisibleCount((c) => c + 6)}
+                className="w-full rounded-[6px] bg-black px-6 text-white hover:bg-black/90 sm:w-auto text-[10px] sm:text-base"
+              >
+                Load More
+              </Button>
+            ) : (
+              <Link href="/explore/attractions">
+                <Button
+                  variant="outline"
+                  className="rounded-full border-blue-600 bg-white px-6 text-blue-600 hover:bg-blue-50"
+                >
+                  Explore More
+                </Button>
+              </Link>
+            )}
+          </div>
+        </div>
       </div>
     </section>
   );
