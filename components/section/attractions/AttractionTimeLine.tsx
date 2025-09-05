@@ -46,7 +46,7 @@ export default function AttractionTimeLine() {
           {itinerary.map((item, idx) => (
             <div key={idx} className="mb-10 flex items-start gap-6">
               {/* Timeline Dot */}
-              <div className="absolute -left-[26px] flex h-12 w-12 items-center justify-center rounded-full border border-blue-600 text-xs font-semibold text-white shadow-md">
+              <div className="scale-75 lg:scale-100 absolute -left-[26px] flex h-12 w-12 items-center justify-center rounded-full border border-blue-600 font-semibold text-white shadow-md">
                 <div className="h-10 w-10 rounded-full bg-blue-600 flex justify-center items-center text-xs">
                   <span className="max-w-8 text-center">{item.day}</span>
                 </div>
@@ -54,8 +54,12 @@ export default function AttractionTimeLine() {
 
               {/* Content */}
               <div>
-                <h3 className="mb-2 text-2xl font-semibold">{item.title}</h3>
-                <p className="text-xl text-gray-600">{item.description}</p>
+                <h3 className="mb-2 text-xs lg:text-2xl font-semibold">
+                  {item.title}
+                </h3>
+                <p className="text-[10px] lg:text-xl text-gray-600">
+                  {item.description}
+                </p>
               </div>
             </div>
           ))}
@@ -66,7 +70,7 @@ export default function AttractionTimeLine() {
         <Button
           variant="default"
           size="sm"
-          className="rounded-2xl shadow-md w-10/12 text-2xl h-[70px] bg-blue-600"
+          className="rounded-[6px] lg:rounded-2xl shadow-md w-10/12 text-xs lg:text-2xl h-[35px] lg:h-[70px] bg-blue-600"
         >
           Book Now
         </Button>

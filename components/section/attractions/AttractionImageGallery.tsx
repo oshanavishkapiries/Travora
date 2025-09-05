@@ -72,9 +72,9 @@ export default function AttractionImageGallery({
       </div>
 
       {/* Desktop Layout - Large card on left, medium + 2 small on right */}
-      <div className="hidden lg:grid grid-cols-6 gap-4">
+      <div className="hidden lg:grid grid-cols-3 gap-4">
         {/* Large Card - Left Side */}
-        <div className="col-span-3 relative overflow-hidden rounded-2xl">
+        <div className="col-span-1 relative h-96 overflow-hidden rounded-2xl">
           <OptimizedImage
             src={mainImage}
             alt="Main attraction image"
@@ -85,15 +85,15 @@ export default function AttractionImageGallery({
 
           {/* Location Badge */}
           {mainLocation && (
-            <div className="absolute bottom-3 left-3 inline-flex items-center gap-1 rounded-full bg-black/70 px-2 py-1 text-xs font-medium text-white backdrop-blur">
-              <MapPin className="h-3 w-3" />
+            <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-black/70 px-3 py-2 text-sm font-medium text-white backdrop-blur">
+              <MapPin className="h-4 w-4" />
               <span>{mainLocation}</span>
             </div>
           )}
         </div>
 
         {/* Right Side - Medium + 2 Small Cards */}
-        <div className="col-span-3 grid grid-rows-2 gap-4">
+        <div className="col-span-2 grid grid-rows-2 gap-4">
           {/* Medium Card - Top Right */}
           <div className="relative h-48 overflow-hidden rounded-2xl">
             <OptimizedImage
