@@ -47,7 +47,7 @@ function RatingBadge({ rating }: { rating: number }) {
 function AttractionCard({ item }: { item: AttractionItem }) {
   return (
     <Link href={`/explore/attractions/${item.id}`}>
-      <div className="group overflow-hidden rounded-2xl bg-white shadow-sm transition-shadow hover:shadow-md">
+      <div className="group overflow-hidden rounded-2xl bg-white shadow-sm transition-shadow hover:shadow-md cursor-pointer">
         <div className="relative aspect-[4/3] w-full overflow-hidden">
           <OptimizedImage
             src={item.imageUrl}
@@ -151,7 +151,7 @@ export default function Attractions({
               <Link href="/explore/attractions">
                 <Button
                   variant="outline"
-                  className="rounded-full border-blue-600 bg-white px-6 text-blue-600 hover:bg-blue-50"
+                  className=" rounded-[6px] border-blue-600 bg-white px-6 text-blue-600 hover:bg-blue-50"
                 >
                   Explore More
                 </Button>
