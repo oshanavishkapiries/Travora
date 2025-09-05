@@ -27,6 +27,7 @@ interface BottomNavItemProps {
 
 // ==================== Stat Card Component ====================
 const StatCard: React.FC<StatCardProps> = ({ value, label }) => (
+  <div className="w-16 md:w-52 flex flex-col items-center rounded-full border border-white/90 bg-white/15 px-3 py-0.5 md:px-6 md:py-2">
   <div className="w-16 md:w-52 flex flex-col items-center rounded-full border border-white/90 bg-white/15 px-3 py-1 md:px-6 md:py-2">
     <span className="text-[8.5px] md:text-2xl font-bold text-white md:text-3xl">
       {value}
@@ -64,25 +65,26 @@ export default function Hero() {
       </div>
 
       {/* ==================== Hero Content ==================== */}
-      <div className="mt-10 relative z-10 flex flex-col items-start justify-center px-6 py-16 text-left md:min-h-[calc(100vh-120px)] md:items-center md:text-center md:px-12 md:py-0 w-full h-fit gap-10">
-        {/* ==================== Main Headline ==================== */}
-        <h1 className="max-w-4xl text-2xl md:text-6xl font-bold leading-tight text-white">
-          Travel Memories
-          <br />
-          You&apos;ll never forget
-        </h1>
+      <div className="relative t-10 z-10 flex flex-col items-start px-5 pt-16 pb-5 text-left md:min-h-[calc(100vh-120px)] md:items-center md:justify-center md:text-center md:px-12 md:py-0 w-full h-fit gap-20 ">
+        <div className="flex gap-6 md:gap-12 flex-col md:items-center ">
+          {/* ==================== Main Headline ==================== */}
+          <h1 className="max-w-4xl text-xl md:text-7xl font-bold leading-tight text-white">
+            Travel memories
+            <br />
+            You&apos;ll never forget
+          </h1>
 
-        {/* ==================== Search Bar (Desktop Only) ==================== */}
-        <div className="hidden w-full md:max-w-xl xl:max-w-2xl md:block">
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
-            <Input
-              type="text"
-              placeholder="Search destinations, tours, or experiences..."
-              className="h-10 rounded-full border-0 bg-white/80 pl-12 pr-4 text-lg placeholder:text-gray-500 focus:bg-white"
-            />
+          {/* ==================== Search Bar (Desktop Only) ==================== */}
+          <div className="hidden w-full md:max-w-xl xl:max-w-2xl md:block">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+              <Input
+                type="text"
+                placeholder="Search destinations, tours, or experiences..."
+                className="h-10 rounded-full border-0 bg-white/80 pl-12 pr-4 text-lg placeholder:text-gray-500 focus:bg-white"
+              />
+            </div>
           </div>
-        </div>
 
         {/* ==================== Primary CTA Button ==================== */}
         <Button
@@ -94,29 +96,29 @@ export default function Hero() {
           <MoveRight />
         </Button>
 
-        {/* ==================== Stats Section (Desktop) ==================== */}
-        <div className="hidden md:flex flex-wrap items-center justify-center gap-28 md:gap-2 lg:gap-x-24">
-          <StatCard value="130" label="Happy Travellers" />
-          <StatCard value="20+" label="Travel Locations" />
-          <StatCard value="10" label="Year Experience" />
-        </div>
+          {/* ==================== Stats Section (Desktop) ==================== */}
+          <div className="hidden md:flex flex-wrap items-center justify-center gap-28 md:gap-2 lg:gap-x-24">
+            <StatCard value="130" label="Happy Travellers" />
+            <StatCard value="20+" label="Travel Locations" />
+            <StatCard value="10" label="Year Experience" />
+          </div>
 
-        {/* ==================== Stats Section (Mobile Style) ==================== */}
-        <div className="flex w-full items-center gap-2 md:hidden">
-          <div className="scale-[0.95]">
-            <StatCard value="130" label="Happy Travellers" />
-          </div>
-          <div className="scale-[0.95]">
-            <StatCard value="130" label="Happy Travellers" />
-          </div>
-          <div className="scale-[0.95]">
-            <StatCard value="130" label="Happy Travellers" />
+          {/* ==================== Stats Section (Mobile Style) ==================== */}
+          <div className="flex w-full items-center gap-2 md:hidden">
+            <div className="scale-[1]">
+              <StatCard value="130" label="Happy Travellers" />
+            </div>
+            <div className="scale-[1]">
+              <StatCard value="130" label="Happy Travellers" />
+            </div>
+            <div className="scale-[1]">
+              <StatCard value="130" label="Happy Travellers" />
+            </div>
           </div>
         </div>
-
         {/* ==================== Mobile Static Navigation Panel ==================== */}
         <div className="w-full md:hidden flex">
-          <div className="w-auto mx-auto flex max-w-[520px] items-center justify-between gap-6 rounded-full border border-white/20 bg-white/15 px-6 py-1 text-white ">
+          <div className="w-auto mx-auto flex max-w-[520px] items-center justify-between gap-6 rounded-full border border-white/40 bg-white/15 px-6 py-1.5 text-white ">
             <BottomNavItem
               icon={<MapPin className="h-3 w-3" />}
               label="Attractions"

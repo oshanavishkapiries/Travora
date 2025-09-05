@@ -14,10 +14,10 @@ import {
 export default function Footer() {
   return (
     <footer className="mt-24 bg-black text-white">
-      <div className="mx-auto w-full max-w-6xl px-4 py-12 md:px-8">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
+      <div className="mx-auto w-full max-w-6xl px-5 py-12 md:px-28 md:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 md:gap-10 justify-between">
           {/* Brand & Contact */}
-          <div className="md:col-span-5">
+          <div className="sm:col-span-7 md:col-span-5">
             <div className="text-2xl font-bold tracking-wide">TRAVORA</div>
             <p className="mt-4 max-w-sm text-sm text-white/70">
               Your journey starts here –
@@ -40,7 +40,7 @@ export default function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div className="md:col-span-3">
+          <div className="sm:col-span-2 md:col-span-3">
             <h4 className="mb-4 text-sm font-semibold text-white/80">
               Quick Links
             </h4>
@@ -74,7 +74,7 @@ export default function Footer() {
           </div>
 
           {/* Company */}
-          <div className="md:col-span-2">
+          <div className="sm:col-span-3 md:col-span-2 align-middle">
             <h4 className="mb-4 text-sm font-semibold text-white/80">
               Company
             </h4>
@@ -98,7 +98,7 @@ export default function Footer() {
           </div>
 
           {/* Social */}
-          <div className="md:col-span-2">
+          <div className="sm:col-span-12 md:col-span-2">
             <div className="flex items-center gap-3 md:justify-end">
               <a
                 aria-label="facebook"

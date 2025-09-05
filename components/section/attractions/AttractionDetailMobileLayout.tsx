@@ -8,6 +8,7 @@ import Link from "next/link";
 import { ATTRACTIONS } from "@/mock/attractions";
 import AttractionImageGallery from "./AttractionImageGallery";
 import AttractionFeatures from "./AttractionFeatures";
+import AttractionTimeLine from "./AttractionTimeLine";
 
 interface AttractionDetailMobileLayoutProps {
   attraction: (typeof ATTRACTIONS)[0];
@@ -18,47 +19,17 @@ export default function AttractionDetailMobileLayout({
 }: AttractionDetailMobileLayoutProps) {
   return (
     <div className="block lg:hidden">
-      {/* Header */}
-      <div className="absolute top-0 left-0 right-0 p-4 z-10">
-        <Link href="/explore/attractions">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="bg-white/20 backdrop-blur text-white hover:bg-white/30"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back
-          </Button>
-        </Link>
-      </div>
-
-      {/* Action Buttons */}
-      <div className="absolute top-4 right-4 flex gap-2 z-10">
-        <Button
-          variant="ghost"
-          size="sm"
-          className="bg-white/20 backdrop-blur text-white hover:bg-white/30"
-        >
-          <Share2 className="h-4 w-4" />
-        </Button>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="bg-white/20 backdrop-blur text-white hover:bg-white/30"
-        >
-          <Heart className="h-4 w-4" />
-        </Button>
-      </div>
-
       {/* Content */}
-      <div className="p-4 space-y-6">
+      <div className="p-6 space-y-8">
         {/* Title and Location */}
-        <div className="pt-16">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+        <div className="pt-12 flex flex-col gap-2.5">
+          <h1 className="text-xl font-bold text-gray-900 mb-2">
             {attraction.title}
           </h1>
-          <div className="flex items-center gap-2 text-gray-600">
-            <MapPin className="h-4 w-4" />
+          <div className="flex items-center gap-2 text-gray-600 text-xs">
+            <span>
+              <MapPin className="h-3 w-3" />
+            </span>
             <span>{attraction.location}</span>
           </div>
         </div>
@@ -71,10 +42,15 @@ export default function AttractionDetailMobileLayout({
         />
 
         {/* About Place */}
-        <div>
-          <h2 className="text-lg font-semibold mb-3">About Place</h2>
-          <p className="text-gray-600 leading-relaxed">
-            {attraction.description}
+        <div className="flex flex-col gap-5">
+          <h2 className="text-xs font-semibold">About Place</h2>
+          <p className="text-gray-600 leading-relaxed text-[10px]">
+            Embark on a 5-day, 4-night adventure along Sri Lanka’s stunning
+            southern coast. This tour takes you through pristine beaches,
+            historic forts, vibrant local markets, and lush coastal landscapes.
+            From the colonial charm of Galle Fort to the golden sands of
+            Unawatuna and the breath- taking Mirissa ...
+            {/* {attraction.description} */}
             <span className="text-blue-600 underline cursor-pointer ml-1">
               Read more
             </span>
@@ -82,7 +58,14 @@ export default function AttractionDetailMobileLayout({
         </div>
 
         {/* What this place offers */}
-        <AttractionFeatures />
+        <div className="border border-gray-200 rounded-2xl">
+          <AttractionFeatures />
+        </div>
+
+        {/* tour place */}
+        <div>
+          <AttractionTimeLine />
+        </div>
       </div>
     </div>
   );
