@@ -2,8 +2,8 @@
 "use client";
 
 import React from "react";
-import AdminLayout from "@/components/admin/AdminLayout";
-import SettingsManagement from "@/components/admin/SettingsManagement";
+import AdminLayout from "@/components/section/admin/AdminLayout";
+import SettingsManagement from "@/components/section/admin/SettingsManagement";
 
 export default function AdminSettingsPage() {
   return (
