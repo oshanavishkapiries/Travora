@@ -2,8 +2,8 @@
 "use client";
 
 import React from "react";
-import AdminLayout from "@/components/admin/AdminLayout";
-import AdminDashboard from "@/components/admin/AdminDashboard";
+import AdminLayout from "@/components/section/admin/AdminLayout";
+import AdminDashboard from "@/components/section/admin/AdminDashboard";
 
 export default function AdminPage() {
   return (

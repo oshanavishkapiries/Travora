@@ -2,7 +2,18 @@
 "use client";
 
 import React from "react";
-import { Leaf, Camera, Train, Mountain, Coffee, MapPin } from "lucide-react";
+import {
+  Leaf,
+  Camera,
+  Train,
+  Mountain,
+  Coffee,
+  MapPin,
+  Clock,
+  Utensils,
+  Clock9,
+  Soup,
+} from "lucide-react";
 
 interface AttractionFeaturesProps {
   className?: string;
@@ -19,8 +30,8 @@ export default function AttractionFeatures({
     },
     {
       id: 2,
-      icon: Camera,
-      text: "Photography Haven",
+      icon: Soup,
+      text: "Meals",
     },
     {
       id: 3,
@@ -45,18 +56,50 @@ export default function AttractionFeatures({
   ];
 
   return (
-    <div className={className}>
-      <h2 className="text-lg font-semibold mb-4">What this place offers ?</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {features.map((feature) => (
-          <div
-            key={feature.id}
-            className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 transition-colors cursor-pointer"
-          >
-            <feature.icon className="h-5 w-5 text-blue-600" />
-            <span className="text-gray-700 font-medium">{feature.text}</span>
-          </div>
-        ))}
+    <div className={className + "p-5 lg:p-10"}>
+      <div>
+        <p className="lg:text-gray-500 mb-3 lg:mb-6 text-xs lg:text-base">
+          Package price
+        </p>
+        <h2 className="text-2xl lg:text-[32px] text-blue-600 font-bold">
+          Rs 35,000/-
+        </h2>
+        <p className="text-xs lg:text-base">per person</p>
+      </div>
+
+      <hr className="my-5" />
+
+      <div className="flex flex-col gap-4">
+        <h2 className="text-xs lg:text-2xl">Package Inclusion</h2>
+        <div className="text-[10px] lg:text-base flex items-center gap-2 text-gray-600">
+          <span>
+            <Clock9 className="h-2.5 lg:h-5 w-2.5 lg:w-5 text-blue-600" />
+          </span>
+          4 Nights - 5 days ( 2 night Galle 2 night Hikkaduwa )
+        </div>
+        <div className="text-[10px] lg:text-base flex items-center gap-2 text-gray-600">
+          <span>
+            <Utensils className="h-2.5 lg:h-5 w-2.5 lg:w-5 text-blue-600" />
+          </span>
+          Daily breakfast included
+        </div>
+      </div>
+
+      <hr className="my-5" />
+
+      <div className="flex flex-col gap-4">
+        <h2 className="tetx-sx lg:text-2xl">Facilities</h2>
+        <div className="flex flex-wrap gap-2 lg:gap-5">
+          {features.map((feature) => (
+            <div
+              key={feature.id}
+              className="flex items-center cursor-pointer py-1 px-2 lg:p-2.5 bg-blue-200 text-blue-600 rounded-[10px] gap-1 lg:gap-2"
+            >
+              <feature.icon className="h-2.5 lg:h-5 w-2.5 lg:w-5" />
+              <span className="text-[10px] lg:text-base">{feature.text}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
