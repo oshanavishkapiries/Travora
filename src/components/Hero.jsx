@@ -56,10 +56,15 @@ const Hero = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="flex flex-col sm:flex-row items-start gap-4"
             >
-              <button className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-full font-medium flex items-center gap-2 transition-all hover:scale-105">
+              <a
+                href="https://forms.gle/1ShnRKxyeKZR7gtD6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-full font-medium flex items-center gap-2 transition-all hover:scale-105"
+              >
                 Join now
                 <ArrowRight className="w-4 h-4" />
-              </button>
+              </a>
             </motion.div>
 
             <motion.p

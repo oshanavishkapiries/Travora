@@ -4,34 +4,64 @@ import { Plus, Minus } from "lucide-react";
 
 const faqs = [
   {
-    question: "How is Kipso different from a normal inbox?",
+    question: "What is this app about?",
     answer:
-      "Regular inboxes show you messages ordered by your latest notifications, on a singular platform. Kipso combines multiple inboxes, learns what matters to you and automatically ranks messages according to their priority.",
+      "This app is a social platform designed for travelers to discover destinations, share real experiences, and connect with people from around the world. Whether you're planning your next trip or looking back on past adventures, it helps you explore, get inspired, and tell your story through travel.",
   },
   {
-    question: "How do Auto-Drafted Replies work?",
+    question: "Who is this app for?",
     answer:
-      "Kipso automatically drafts replies that sound like you. It learns your tone, language, and context across platforms, then writes responses based on your past conversations and priorities. When a new message arrives, you'll see a ready-to-send reply that you can edit, approve, or ignore. It's the fastest way to stay personal without wasting time typing.",
+      "The app is for anyone who loves travel, regardless of how often or how far they go. From solo travelers and digital nomads to weekend explorers and travel creators, it's built for people who enjoy discovering new places and sharing meaningful experiences.",
   },
   {
-    question: "Can you still message outside of Kipso on connected accounts?",
+    question: "What kind of content can I share?",
     answer:
-      "Yes. Any messages sent on Kipso are received natively by your contacts on the platforms you're communicating with them on. You can send a message on Kipso to a contact on WhatsApp, and continue that conversation on WhatsApp, and vice versa. Your message chain will be linked so the messaging experience of all your recipients remains unchanged.",
+      "You can share photos, videos, travel stories, tips, reviews, and recommendations from your journeys. Location-based posts and itineraries help others discover places through your eyes. We encourage authentic, helpful, and respectful content.",
   },
   {
-    question: "How does Kipso learn my goals and priorities?",
+    question: "Can I discover new places on the app?",
     answer:
-      "When you connect your accounts, Kipso analyses message patterns and relationships to understand who and what matters most. You can adjust priorities anytime. Kipso keeps learning from your activity so its ranking stays accurate.",
+      "Yes. You can explore destinations through posts from other travelers, trending locations, and personalized recommendations. Whether you're searching for trip inspiration or uncovering hidden gems, the app makes discovering new places easy and engaging.",
   },
   {
-    question: "Is my data private and secure?",
+    question: "How do I connect with other travelers?",
     answer:
-      "Yes. Your data never leaves your account without encryption. Kipso uses secure, enterprise-grade protocols and does not sell or share your information. AI models only process context to serve your messages, not to train external systems.",
+      "You can follow other users, like and comment on posts, and send direct messages. These features make it easy to start conversations, exchange tips, and connect with travelers who share similar interests or destinations.",
   },
   {
-    question: "What happens when I join the waitlist?",
+    question: "Is my data and location safe?",
     answer:
-      "You'll get early access when your invite is ready. We're onboarding in stages to maintain performance and collect feedback from power users, including founders, operators, and teams who depend on communication speed.",
+      "Your privacy is important to us. You have full control over what you share, including whether or not to tag locations. You can choose to keep your account private, and we do not sell personal data. All privacy settings can be managed directly from your profile.",
+  },
+  {
+    question: "Can I use the app offline?",
+    answer:
+      "Some features, such as viewing saved posts or itineraries, may be available offline. However, browsing new content, interacting with others, and uploading posts require an internet connection.",
+  },
+  {
+    question: "What content is not allowed?",
+    answer:
+      "Content that includes hate speech, harassment, spam, misleading information, explicit material, or copyright infringement is not allowed. Posts or accounts that violate our community guidelines may be removed or suspended.",
+  },
+  {
+    question: "How can I grow my profile?",
+    answer:
+      "Growing your profile comes naturally by sharing quality content, posting consistently, engaging with other travelers, and adding relevant location tags. Authentic stories and useful tips tend to resonate most with the community.",
+  },
+  {
+    question: "Which devices are supported?",
+    answer:
+      "The app is currently available on mobile devices for both iOS and Android. At this time, the app is not supported on web or tablets, but web support is planned for the future.",
+  },
+  {
+    question: "Is the app free to use?",
+    answer:
+      "The app is completely free to download and use. All features, including social interactions and discovery tools, are available at no cost, so you can enjoy the full experience without any subscriptions or hidden fees.",
+  },
+  {
+    question: "How can I contact support?",
+    answer:
+      "You can contact our support team by emailing info@kipso.life. We're always happy to help.",
   },
 ];
 
@@ -95,9 +125,9 @@ const FAQ = () => {
             Frequently Asked Questions
           </h2>
           <p className="text-gray-400 text-lg">
-            Everything you need to know about using Kipso, from setup to
-            security. Still curious? Drop us a message and we'll get right back
-            to you.
+            Everything you need to know about our travel community, from sharing
+            content to staying connected. Still curious? Reach out and we'll be
+            happy to help.
           </p>
         </motion.div>
 

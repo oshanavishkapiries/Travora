@@ -38,7 +38,13 @@ function App() {
           <Logo />
           <NavItems items={navItems} />
           <div className="flex items-center gap-2">
-            <NavbarButton variant="dark" className="rounded-full">
+            <NavbarButton
+              href="https://forms.gle/1ShnRKxyeKZR7gtD6"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="dark"
+              className="rounded-full"
+            >
               Join Now
             </NavbarButton>
           </div>
@@ -67,7 +73,13 @@ function App() {
                 {item.name}
               </a>
             ))}
-            <NavbarButton variant="dark" className="w-full rounded-full">
+            <NavbarButton
+              href="https://forms.gle/1ShnRKxyeKZR7gtD6"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="dark"
+              className="w-full rounded-full"
+            >
               Join Now
             </NavbarButton>
           </MobileNavMenu>
